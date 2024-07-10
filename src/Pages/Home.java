@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Home {
-  public static void main(String[] args) {
+  public Home() {
     JFrame frame = new JFrame("PhoneBook - Home");
     frame.setSize(400, 700);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

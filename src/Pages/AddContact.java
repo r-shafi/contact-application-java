@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AddContact {
-  public static void main(String[] args) {
+  public AddContact() {
     JFrame frame = new JFrame();
     // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
