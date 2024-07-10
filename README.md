@@ -11,6 +11,8 @@ A simple and efficient Java-based contact management application. This applicati
 - Block contacts from the address book
 - Store contact data in a local file for persistence
 
+![](/resources/screens.png)
+
 ### Technologies Used
 
 - Java
