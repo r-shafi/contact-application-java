@@ -67,15 +67,23 @@ public class AddContact {
         constraint.fill = GridBagConstraints.HORIZONTAL;
         panel.add(emailInput, constraint);
 
-        JButton button = new JButton("Save Contact");
+        JButton cancelButton = new JButton("Cancel");
+        constraint.gridx = 0;
+        constraint.gridy = 3;
+        constraint.fill = GridBagConstraints.NONE;
+        constraint.anchor = GridBagConstraints.CENTER;
+        panel.add(cancelButton, constraint);
+
+        JButton saveButton = new JButton("Save Contact");
         constraint.gridx = 1;
         constraint.gridy = 3;
         constraint.fill = GridBagConstraints.NONE;
         constraint.anchor = GridBagConstraints.CENTER;
-        panel.add(button, constraint);
-
-        button.addActionListener(e -> submit(frame, nameInput, phoneInput, emailInput));
-
+        panel.add(saveButton, constraint);
+        
+        cancelButton.addActionListener(e -> frame.dispose());
+        saveButton.addActionListener(e -> submit(frame, nameInput, phoneInput, emailInput));
+        
         frame.add(panel);
         frame.setVisible(true);
     }
