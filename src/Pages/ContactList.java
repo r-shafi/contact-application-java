@@ -32,7 +32,7 @@ public class ContactList {
     if (lines.isEmpty()) {
       JLabel label = new JLabel("No contacts found.");
       JButton backButton = new JButton("Back");
-
+      
       panel.add(label);
       panel.add(backButton);
 
