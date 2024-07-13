@@ -6,6 +6,9 @@ import java.awt.Insets;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -86,6 +89,22 @@ public class AddContact {
             JOptionPane.showMessageDialog(frame, "Please fill in all fields");
         } else {
             if (numberText.matches("^[0-9]{11}$")) {
+                List<String> lines = null;
+
+                try {
+                    lines = Files.readAllLines(Paths.get("contacts.txt"));
+
+                    for (String line : lines) {
+                        String[] parts = line.split(",");
+                        if (parts[1].equals(numberText)) {
+                            JOptionPane.showMessageDialog(frame, "Contact with this number already exists");
+                            return;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 if (emailText.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
                     if (!file.exists()) {
                         try {
