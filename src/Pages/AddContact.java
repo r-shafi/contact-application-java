@@ -1,77 +1,95 @@
 package Pages;
 
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AddContact {
-  public AddContact() {
-    JFrame frame = new JFrame();
-    // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    // frame.setBounds(100, 100, 500, 300);
-    frame.setSize(400, 700);
-    frame.setTitle("Add New Contact");
-    frame.setResizable(false);
+    public AddContact() {
+        JFrame frame = new JFrame("Add New Contact");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(400, 700);
+        frame.setResizable(false);
 
-    JPanel panel = new JPanel(new GridBagLayout());
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.insets = new Insets(10, 10, 10, 10);
-    Font font = new Font("Arial", Font.PLAIN, 20);
+        JPanel panel = new JPanel(new GridBagLayout());
 
-    JLabel label1 = new JLabel("Name");
-    label1.setFont(font);
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.anchor = GridBagConstraints.WEST;
-    panel.add(label1, gbc);
+        GridBagConstraints constraint = new GridBagConstraints();
+        constraint.insets = new Insets(10, 10, 10, 10);
 
-    JTextField t1 = new JTextField(20);
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    panel.add(t1, gbc);
+        JLabel nameLabel = new JLabel("Name");
+        constraint.gridx = 0;
+        constraint.gridy = 0;
+        constraint.anchor = GridBagConstraints.WEST;
+        panel.add(nameLabel, constraint);
 
-    JLabel label2 = new JLabel("Number");
-    label2.setFont(font);
-    gbc.gridx = 0;
-    gbc.gridy = 1;
-    gbc.fill = GridBagConstraints.NONE;
-    panel.add(label2, gbc);
+        JTextField nameInput = new JTextField(20);
+        constraint.gridx = 1;
+        constraint.gridy = 0;
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(nameInput, constraint);
 
-    JTextField t2 = new JTextField(20);
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    panel.add(t2, gbc);
+        JLabel phoneLabel = new JLabel("Number");
+        constraint.gridx = 0;
+        constraint.gridy = 1;
+        constraint.fill = GridBagConstraints.NONE;
+        panel.add(phoneLabel, constraint);
 
-    JLabel label3 = new JLabel("Email");
-    label3.setFont(font);
-    gbc.gridx = 0;
-    gbc.gridy = 2;
-    gbc.fill = GridBagConstraints.NONE;
-    panel.add(label3, gbc);
+        JTextField phoneInput = new JTextField(20);
+        constraint.gridx = 1;
+        constraint.gridy = 1;
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(phoneInput, constraint);
 
-    JTextField t3 = new JTextField(20);
-    gbc.gridx = 1;
-    gbc.gridy = 2;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    panel.add(t3, gbc);
+        JLabel emailLabel = new JLabel("Email");
+        constraint.gridx = 0;
+        constraint.gridy = 2;
+        constraint.fill = GridBagConstraints.NONE;
+        panel.add(emailLabel, constraint);
+        
+        JTextField emailInput = new JTextField(20);
+        constraint.gridx = 1;
+        constraint.gridy = 2;
+        constraint.fill = GridBagConstraints.HORIZONTAL;
+        panel.add(emailInput, constraint);
 
-    JButton button = new JButton("Save Contact");
-    gbc.gridx = 1;
-    gbc.gridy = 3;
-    gbc.fill = GridBagConstraints.NONE;
-    gbc.anchor = GridBagConstraints.CENTER;
-    panel.add(button, gbc);
+        JButton button = new JButton("Save Contact");
+        constraint.gridx = 1;
+        constraint.gridy = 3;
+        constraint.fill = GridBagConstraints.NONE;
+        constraint.anchor = GridBagConstraints.CENTER;
+        panel.add(button, constraint);
 
-    frame.add(panel);
-    frame.setVisible(true);
-  }
+        button.addActionListener(e -> submit(frame, nameInput, phoneInput, emailInput));
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+
+    public static void submit(JFrame frame, JTextField name, JTextField number, JTextField email) {
+        String nameText = name.getText();
+        String numberText = number.getText();
+        String emailText = email.getText();
+
+        if (nameText.isEmpty() || numberText.isEmpty() || emailText.isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Please fill in all fields");
+        } else {
+            if (numberText.matches("^[0-9]{11}$")) {
+                if (emailText.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
+                    JOptionPane.showMessageDialog(frame, "Contact saved successfully");
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Invalid email address");
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "Invalid phone number");
+            }
+        }
+    }
 }
