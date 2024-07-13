@@ -3,6 +3,9 @@ package Pages;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class AddContact {
+    File file = new File("contacts.txt");
+
     public AddContact() {
         JFrame frame = new JFrame("Add New Contact");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -72,7 +77,7 @@ public class AddContact {
         frame.setVisible(true);
     }
 
-    public static void submit(JFrame frame, JTextField name, JTextField number, JTextField email) {
+    public void submit(JFrame frame, JTextField name, JTextField number, JTextField email) {
         String nameText = name.getText();
         String numberText = number.getText();
         String emailText = email.getText();
@@ -82,7 +87,27 @@ public class AddContact {
         } else {
             if (numberText.matches("^[0-9]{11}$")) {
                 if (emailText.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
-                    JOptionPane.showMessageDialog(frame, "Contact saved successfully");
+                    if (!file.exists()) {
+                        try {
+                            file.createNewFile();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    try {
+                        FileWriter fw = new FileWriter(file, true);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        bw.write(nameText + "," + numberText + "," + emailText);
+                        bw.newLine();
+                        bw.close();
+                        fw.close();
+                        JOptionPane.showMessageDialog(frame, "Contact saved successfully");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(frame, "An error occurred while saving contact");
+                    }
+
                     frame.dispose();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Invalid email address");
