@@ -1,6 +1,7 @@
 package Pages;
 
 import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,8 +9,9 @@ import javax.swing.JPanel;
 public class Home {
   public Home() {
     JFrame frame = new JFrame("PhoneBook - Home");
-    frame.setSize(400, 700);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setSize(400, 700);
+    frame.setResizable(false);
     frame.setVisible(true);
 
     JPanel panel = new JPanel();
@@ -28,7 +30,7 @@ public class Home {
   }
 
   public static void addContact() {
-    System.out.println("Add Contact Page");
+    new AddContact();
   }
 
   public static void viewContacts() {
